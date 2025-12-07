@@ -10,7 +10,7 @@ permalink: /applications/
   </div>
 
   <div class="applications-content text-left">
-    <p class="lead mb-4">MAED is a fundamental building block for a wide range of applications across government, industry, and academia. Several examples include: </p>
+    <p class="lead mb-4">MAED is a fundamental building block for a wide range of applications across government, industry, and academia. Several examples include: HERE we add a sentence for testing purposes </p>
 
      <div class="applications-grid">
       <div class="application-category">
