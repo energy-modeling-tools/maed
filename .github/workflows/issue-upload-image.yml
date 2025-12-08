@@ -122,13 +122,6 @@ jobs:
               filename = f"{base}.{ext}"
               target = outdir / filename
 
-              # Avoid collisions
-              orig = target
-              k = 1
-              while target.exists():
-                  target = orig.with_name(f"{orig.stem}_{k}{orig.suffix}")
-                  k += 1
-
               print(f"Saving {url} -> {target}")
               try:
                   with open(target, "wb") as f:
