@@ -51,6 +51,17 @@ events:
         title: "Forecasting Rural Cooking Final Demand and Household Air Pollution in Zambia: An Application of the MAED Model"
         url: "https://zenodo.org/records/11396527"
   
+  - title: "EMP-A Testing"
+    image: "../assets/img/test_image.jpeg"
+    alt: "Test image"
+    description: "Test page update"
+    outputs:
+      - country: "Test"
+        flag: "🤞"
+        title: "Update test with actions"
+        url: "9"
+Model"
+        url: ""
 
 adjacent_events:
   - country: "Rwanda"
