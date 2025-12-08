@@ -7,7 +7,13 @@ body:
     id: path
     attributes:
       label: "Target Path"
-      description: "Where should the images be saved?"
+      description: |
+        Where should the images be saved?
+        - For EMP events → use `assets/img/EMP/`
+        - For partner logos → use `assets/img/partners/`
+        - For general images → use `assets/img/`
+        
+        ⚠️ **Important**: The path and filename must match exactly what you use in your YAML/Markdown files!
       placeholder: "assets/img/EMP/"
       value: "assets/img/EMP/"
     validations:
@@ -59,4 +65,7 @@ body:
         - The filename in `![filename]` will be used exactly (special characters → underscores)
         - File extension is added automatically based on image type
         - If a file with the same name exists, a number suffix will be added (e.g., `file_1.jpg`)
-        - Make sure the path matches what you use in your YAML/Markdown files!
+        
+        **⚠️ Critical**: Your path and filename must match exactly what you reference in your code:
+        - If your YAML has `image: "../assets/img/EMP/EMP-A-2026.jpg"`
+        - Then use path `assets/img/EMP/` and filename `![EMP-A-2026](https://...)`
