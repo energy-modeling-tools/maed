@@ -19,15 +19,16 @@ body:
     id: yaml_content
     attributes:
       label: "YAML Content"
-      description: "Edit the YAML content below. You can drag and drop images into this textarea to upload them."
+      description: "This field will be automatically filled with the current file content. You can then edit it. You can drag and drop images into this textarea to upload them."
       placeholder: |
+        (This field will be automatically filled after you create the issue)
         events:
           - title: "Example Event"
             image: "../assets/img/example.jpg"
             description: "Event description"
       render: yaml
     validations:
-      required: true
+      required: false
   - type: textarea
     id: comment
     attributes:

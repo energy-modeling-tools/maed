@@ -56,11 +56,22 @@ jobs:
             }
             
             // Extract YAML content from the code block or YAML Content field
-            const yamlMatch = body.match(/```yaml\s*\n([\s\S]*?)\n```/);
-            // Also check for YAML content in the YAML Content field from the form
-            const yamlContentFieldMatch = body.match(/###\s*YAML Content\s*\n\s*```yaml\s*\n([\s\S]*?)\n```/i) || 
-                                         body.match(/###\s*YAML Content\s*\n\n\s*```yaml\s*\n([\s\S]*?)\n```/i);
-            const newContent = yamlMatch ? yamlMatch[1] : (yamlContentFieldMatch ? yamlContentFieldMatch[1].trim() : null);
+            // Priority: YAML Content field > any yaml code block
+            let newContent = null;
+            
+            // First, try to extract from YAML Content field (form field)
+            const yamlContentFieldMatch = body.match(/###\s*YAML Content\s*\n\n?\s*```yaml\s*\n([\s\S]*?)\n```/i);
+            if (yamlContentFieldMatch && yamlContentFieldMatch[1]) {
+              newContent = yamlContentFieldMatch[1].trim();
+              console.log('✅ Extracted YAML content from YAML Content field');
+            } else {
+              // Fallback: try to find any yaml code block
+              const yamlMatch = body.match(/```yaml\s*\n([\s\S]*?)\n```/);
+              if (yamlMatch && yamlMatch[1]) {
+                newContent = yamlMatch[1].trim();
+                console.log('✅ Extracted YAML content from yaml code block');
+              }
+            }
             
             // Extract image URLs from the issue
             const imageUrls = [];

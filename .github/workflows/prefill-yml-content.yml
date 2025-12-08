@@ -94,25 +94,55 @@ jobs:
               
               // YAML files don't need front matter removal, use all content directly
               
-              // Preserve the original issue body and add prefilled content
-              const originalBody = context.payload.issue.body || '';
-              const header = `\n\n---\n\n### 🧾 Prefilled YAML Content from \`${filePath}\`\n\n`;
-              const prefilledContent = '```yaml\n' + content + '\n```\n\n';
+              // Update the YAML Content field in the issue body
+              // GitHub Forms format: ### YAML Content\n\n```yaml\n...\n```\n or placeholder text
+              let originalBody = context.payload.issue.body || '';
               
+              const yamlContentField = '```yaml\n' + content + '\n```';
+              
+              // Try to find and replace the YAML Content field
+              // Pattern 1: ### YAML Content\n\n```yaml\n...\n```\n (with code block)
+              const yamlContentPattern1 = /(###\s*YAML Content\s*\n\n?)(```yaml\s*\n[\s\S]*?\n```\s*\n?)/i;
+              // Pattern 2: ### YAML Content\n\n... (without code block, may have placeholder)
+              const yamlContentPattern2 = /(###\s*YAML Content\s*\n\n?)([^\n]*(?:\n(?!###|---|```)[^\n]*)*?)(?=\n###|\n---|$)/i;
+              
+              let newBody;
+              if (yamlContentPattern1.test(originalBody)) {
+                // Replace existing YAML Content field with code block
+                newBody = originalBody.replace(yamlContentPattern1, `$1${yamlContentField}\n\n`);
+                console.log('✅ Replaced existing YAML Content field (with code block)');
+              } else if (yamlContentPattern2.test(originalBody)) {
+                // Replace existing YAML Content field (without code block, may be empty or placeholder)
+                newBody = originalBody.replace(yamlContentPattern2, `$1${yamlContentField}\n\n`);
+                console.log('✅ Replaced existing YAML Content field (without code block)');
+              } else {
+                // Insert YAML Content field after the file selection field
+                // Match: ### Which YAML file do you want to edit?\n\nvalue\n\n
+                const fileFieldPattern = /(###\s*Which YAML file do you want to edit\?[^\n]*\n\n?[^\n]+\n\n?)/i;
+                if (fileFieldPattern.test(originalBody)) {
+                  newBody = originalBody.replace(fileFieldPattern, `$1### YAML Content\n\n${yamlContentField}\n\n`);
+                  console.log('✅ Inserted YAML Content field after file selection');
+                } else {
+                  // Fallback: append at the end
+                  newBody = originalBody + `\n\n### YAML Content\n\n${yamlContentField}\n\n`;
+                  console.log('✅ Appended YAML Content field at the end');
+                }
+              }
+              
+              // Add instructions at the end
               const instructions = [
+                '\n---\n',
                 '> 📝 **How to edit:**',
-                '> 1. Click the **three dots (···)** in the top right corner',
-                '> 2. Select **"Edit"**',
-                '> 3. Edit the YAML content in the code block above (between \\`\\`\\`yaml and \\`\\`\\`)',
-                '> 4. To add images: drag and drop images into the comment box, or paste image URLs',
-                '> 5. Click **"Update comment"** to save',
-                '> 6. The system will automatically create a Pull Request with your changes',
+                '> 1. Edit the YAML content in the **YAML Content** field above',
+                '> 2. To add images: drag and drop images into the comment box, or paste image URLs',
+                '> 3. Click **"Update comment"** to save',
+                '> 4. The system will automatically create a Pull Request with your changes',
                 '',
-                '> ⚠️ **Important:** Only edit the content inside the code block, do not delete the \\`\\`\\`yaml markers!',
+                '> ⚠️ **Important:** Make sure to keep the \\`\\`\\`yaml code block markers!',
                 '> 📷 **Images:** Uploaded images will be automatically saved to `assets/img/` directory'
               ].join('\n');
               
-              const newBody = originalBody + header + prefilledContent + instructions;
+              newBody = newBody + instructions;
               
               await github.rest.issues.update({
                 ...context.repo,
