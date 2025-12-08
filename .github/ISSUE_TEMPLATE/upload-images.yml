@@ -1,6 +1,6 @@
 name: "Upload Images"
 description: "Upload images/files into the repository via GitHub Issues"
-title: "[Upload] "
+title: "Upload Images: "
 labels: ["upload"]
 body:
   - type: input
@@ -69,3 +69,4 @@ body:
         **⚠️ Critical**: Your path and filename must match exactly what you reference in your code:
         - If your YAML has `image: "../assets/img/EMP/EMP-A-2026.jpg"`
         - Then use path `assets/img/EMP/` and filename `![EMP-A-2026](https://...)`
+        
