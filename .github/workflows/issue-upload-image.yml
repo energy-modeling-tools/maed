@@ -118,7 +118,7 @@ jobs:
                   else:
                       ext = "bin"
 
-              filename = f"issue{issue_number}_{base}.{ext}"
+              filename = f"{base}.{ext}"
               target = outdir / filename
 
               # Avoid collisions

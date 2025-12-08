@@ -16,8 +16,17 @@ body:
     id: images
     attributes:
       label: "Images"
-      description: "Drag or paste your files here. GitHub will automatically convert them to Markdown image links."
-      placeholder: "![alt text](https://github.com/...)"
+      description: |
+        **Step 1**: Drag or paste your image files into this text box below.
+        **Step 2**: GitHub will automatically convert them to Markdown format: `![image](https://github.com/...)`
+        **Step 3**: Change the `image` part (between `![` and `]`) to your desired filename.
+        
+        Example:
+        - `![EMP-A-2026](https://...)` → saves as `EMP-A-2026.jpg`
+        - `![partner-logo](https://...)` → saves as `partner-logo.png`
+      placeholder: |
+        ![my-filename](https://github.com/user-attachments/...)
+        ![another-image](https://github.com/user-attachments/...)
     validations:
       required: true
   - type: textarea
@@ -33,7 +42,21 @@ body:
       value: |
         ---
         
-        **Usage Tips:**
-        - For EMP events: use `assets/img/EMP/`
-        - For partner logos: use `assets/img/partners/`
-        - Make sure paths match those in your Markdown/YAML files
+        ## 📋 How it works:
+        
+        **Where images go:**
+        - Images will be saved to the **Target Path** you specified above
+        - For EMP event images → use `assets/img/EMP/`
+        - For partner logos → use `assets/img/partners/`
+        - For general images → use `assets/img/`
+        
+        **How to name your files:**
+        1. Upload/paste your image → GitHub creates: `![image](https://...)`
+        2. Change `image` to your desired name → `![EMP-A-2026](https://...)`
+        3. Submit the issue → File saved as: `EMP-A-2026.jpg`
+        
+        **Important:**
+        - The filename in `![filename]` will be used exactly (special characters → underscores)
+        - File extension is added automatically based on image type
+        - If a file with the same name exists, a number suffix will be added (e.g., `file_1.jpg`)
+        - Make sure the path matches what you use in your YAML/Markdown files!
