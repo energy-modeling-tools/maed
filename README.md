@@ -44,4 +44,3 @@ For editors who don’t want to touch code and don’t want external services:
 Notes
 - This flow works for the existing Markdown pages listed in the form. Extend the dropdown in `.github/ISSUE_TEMPLATE/edit-content.yml` to allow more files.
 - Images: upload to the repo via the GitHub web UI under `assets/img/` and reference as `/assets/img/<filename>` in the Markdown body.
-# maed2.github.io
