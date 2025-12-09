@@ -1,3 +1,16 @@
+# MAED2 demo site
+
+This site consumes the shared `page-template` theme.
+
+## How to run locally
+1) Update `_config.yml` `remote_theme: YOUR-ORG_OR_USER/page-template@main` after you push the theme repo.
+2) Install deps: `bundle install`.
+3) Serve: `bundle exec jekyll serve`.
+
+## Deployment flow
+- Source/content stays here.
+- Layouts/includes/assets come from `page-template` via `remote_theme`.
+- If you need a site-specific override, place a file with the same path/name here (e.g., `assets/img/logo.png`).
 
 Website for MAED
 
