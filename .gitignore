@@ -1,0 +1,9 @@
+node_modules/
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+.pdf
+node_modules/
+assets/css/style.css.map
