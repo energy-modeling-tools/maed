@@ -1,0 +1,34 @@
+# Demo site that consumes the shared page-template theme
+title: "MAED 2 (demo)"
+description: "Demo site using the shared page-template"
+baseurl: ""
+url: ""
+
+remote_theme: YOUR-ORG_OR_USER/page-template@main
+
+markdown: kramdown
+theme: null
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-avatar
+  - jekyll-redirect-from
+  - jekyll-coffeescript
+  - jekyll-sitemap
+  - jekyll-octicons
+
+sass:
+  style: :compressed
+  sass_dir: assets/css/
+  load_paths:
+    - node_modules/
+    - node_modules/@primer/view-components/app/components/
+
+# Keep content/data here; layouts/includes/assets come from the theme
+exclude:
+  - node_modules
+  - vendor
+  - script
+  - package.json
+  - package-lock.json
+
