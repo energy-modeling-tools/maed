@@ -1,5 +1,5 @@
 # Demo site that consumes the shared page-template theme
-title: "MAED 2 (demo)"
+title: "MAED"
 description: "Demo site using the shared page-template"
 baseurl: "/maed"
 url: ""
